@@ -44,7 +44,7 @@ Verwendet wurden 5 verknüpfte Tabellen (2022–2024):
 |---|---|---|
 | `shopsphere_customers` | Kunden: Region, Land, Alter, Geschlecht, Akquisitionskanal | ~3.000 |
 | `shopsphere_products` | Produkte: Kategorie, Preis, Kosten, Marge | 250 |
-| `shopsphere_orders` | Bestellungen: Datum, Kanal, Rabatt, Beträge, A/B-Variante | ~12.300 |
+| `shopsphere_orders` | Bestellungen: Datum, Kanal, Rabatt, Beträge, A/B-Variante | ~12.300 (11.075 einfülltr) |
 | `shopsphere_order_items` | Bestellpositionen | ~26.000 |
 | `shopsphere_marketing` | Marketingkampagnen nach Kanal und Monat | 216 |
 
@@ -64,10 +64,11 @@ Verwendet wurden 5 verknüpfte Tabellen (2022–2024):
 
 ```
 ├── README.md
-├── README.de.md                    # diese Datei
+├── README_ukr.md                    # diese Datei
 ├── data/                            # Roh-CSV-Tabellen
-├── SQL_query/                       # SQL-Abfragen
-└── Перевірка_баз_данних.docx        # Datenqualitätsprüfung
+├── SQL_abfragen/                    # SQL-Abfragen
+├── Tableau/                         # File - Tableau Public
+
 ```
 
 ---
@@ -99,7 +100,7 @@ Fünf Abfragen (JOINs, Aggregationen, Unterabfragen), die die Grundlage für Vis
 4. Kunden mit überdurchschnittlichen Ausgaben (Unterabfrage) — Grundlage für die Top-5%-Berechnung
 5. ROI und Effizienz der Marketingkanäle
 
-📄 Abfragen: Ordner [`SQL_query/`](./SQL_query)
+📄 Abfragen: Ordner [`sql_abfragen/`](./sql_abfragen)
 
 ### 2. Dashboard
 
