@@ -1,0 +1,1 @@
+SELECT customer_id, discount_pct, order_id FROM shopsphere_orders WHERE is_returned = 0
