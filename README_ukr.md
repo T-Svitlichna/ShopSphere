@@ -4,8 +4,9 @@
 
 **Автор:** Світлічна Тетяна
 
-🔗 **Дашборд (Tableau Public):** [ShopSphere Dashboard](https://public.tableau.com/views/Abschlussproect/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
-🔗 **Повна презентація проєкту:** [Google Drive](https://drive.google.com/file/d/1oggIIGP9saXxdrap-Oc7cpSRLBWI-PtR/view?usp=sharing)
+
+🔗 **Präsentations-Website (live):** [ShopSphere Presentation](https://t-svitlichna.github.io/ShopSphere/)
+🔗 **Dashboard (Tableau Public):** [ShopSphere Dashboard](https://public.tableau.com/views/Abschlussproect/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
 ---
 
@@ -32,7 +33,7 @@ CEO поставила п'ять запитань:
 |---|---|---|
 | `shopsphere_customers` | клієнти: регіон, країна, вік, стать, канал залучення | ~3 000 |
 | `shopsphere_products` | товари: категорія, ціна, собівартість, маржа | 250 |
-| `shopsphere_orders` | замовлення: дати, канал, знижка, суми, A/B-варіант | ~12 300 |
+| `shopsphere_orders` | замовлення: дати, канал, знижка, суми, A/B-варіант | ~12 300  - 11075 з урахуванням відмінених замовдень|
 | `shopsphere_order_items` | позиції замовлень | ~26 000 |
 | `shopsphere_marketing` | маркетингові кампанії по каналах і місяцях | 216 |
 
