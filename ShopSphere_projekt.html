@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Виручка росте. Прибуток — не завжди. / Der Umsatz wächst. Der Gewinn nicht immer.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f9fa;
+    --panel:#ffffff;
+    --panel-soft:#e9f3f5;
+    --ink:#10333f;
+    --ink-soft:#4b6572;
+    --ink-faint:#8aa3ab;
+    --accent:#d98e4a;
+    --accent-ink:#7a4c1e;
+    --teal:#2f8fa0;
+    --teal-deep:#1c6674;
+    --line:#d7e8ec;
+    --bad:#c85a3f;
+    --good:#3f8f6a;
+    --radius:14px;
+    --serif:'Fraunces', serif;
+    --sans:'Inter', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .t-de{display:none;}
+  body.lang-de .t-uk{display:none;}
+  body.lang-de .t-de{display:block;}
+  body.lang-de .t-de-i{display:inline;}
+  .t-de-i{display:none;}
+  body.lang-de .t-uk-i{display:none;}
+
+  h1,h2,h3{font-family:var(--serif); font-weight:600; margin:0; color:var(--ink);}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,249,250,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:14px; padding-bottom:14px; gap:16px; flex-wrap:wrap;
+  }
+  .brand{font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal-deep); font-weight:600;}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap;}
+  .tabs a{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.02em;
+    text-decoration:none; color:var(--ink-soft);
+    border:1px solid var(--line); background:var(--panel);
+    padding:6px 12px; border-radius:8px 8px 0 0;
+    transition:all .15s ease;
+  }
+  .tabs a:hover{color:var(--ink); border-color:var(--teal); background:var(--panel-soft);}
+  .langtoggle{
+    display:flex; border:1px solid var(--teal); border-radius:999px; overflow:hidden;
+    font-family:var(--mono); font-size:12.5px; font-weight:600;
+  }
+  .langtoggle button{
+    border:none; background:transparent; color:var(--teal-deep);
+    padding:7px 16px; cursor:pointer; letter-spacing:.05em;
+  }
+  .langtoggle button.active{background:var(--teal); color:#fff;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 64px; position:relative; overflow:hidden;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal-deep); margin-bottom:18px; display:inline-block;
+    border-bottom:2px solid var(--accent); padding-bottom:4px;
+  }
+  .hero h1{font-size:clamp(32px,5vw,54px); line-height:1.08; max-width:820px; letter-spacing:-.01em;}
+  .hero .lede{font-size:18px; color:var(--ink-soft); max-width:640px; margin-top:22px;}
+  .hero-stat-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:40px;}
+  .microstat{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 20px; min-width:180px;
+  }
+  .microstat .num{font-family:var(--mono); font-size:26px; font-weight:600; color:var(--teal-deep);}
+  .microstat .lbl{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
+
+  .callout{
+    background:var(--panel); border-left:3px solid var(--accent);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:22px 26px; margin-top:36px; max-width:700px;
+    font-family:var(--serif); font-size:17px; font-style:italic; color:var(--ink);
+  }
+  .callout .src{display:block; margin-top:10px; font-family:var(--mono); font-style:normal; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint);}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:74px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-code{
+    font-family:var(--mono); font-size:14px; font-weight:600; color:#fff;
+    background:var(--teal-deep); border-radius:8px; padding:6px 12px; letter-spacing:.05em;
+  }
+  .sec-head h2{font-size:clamp(24px,3.4vw,36px);}
+  .sec-sub{color:var(--ink-soft); font-size:16px; max-width:660px; margin:14px 0 36px;}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:760px){ .grid-2, .grid-3{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 26px;
+  }
+  .card h3{font-size:18px; margin-bottom:10px;}
+  .card p{color:var(--ink-soft); font-size:15px; margin:0;}
+
+  .stat-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 22px; text-align:left;
+  }
+  .stat-card .big{font-family:var(--mono); font-size:32px; font-weight:600; letter-spacing:-.01em;}
+  .stat-card .big.good{color:var(--good);}
+  .stat-card .big.bad{color:var(--bad);}
+  .stat-card .big.neutral{color:var(--teal-deep);}
+  .stat-card .cap{font-size:13px; color:var(--ink-soft); margin-top:6px;}
+  .delta{font-family:var(--mono); font-size:13px; font-weight:600; padding:2px 8px; border-radius:6px; display:inline-block; margin-left:8px;}
+  .delta.up{background:#e5f3ec; color:var(--good);}
+  .delta.down{background:#fbeae4; color:var(--bad);}
+
+  table{width:100%; border-collapse:collapse; font-size:14.5px; margin:18px 0; background:var(--panel); border-radius:var(--radius); overflow:hidden; border:1px solid var(--line);}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line);}
+  th{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); background:var(--panel-soft); font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+  td.mono, th.mono{font-family:var(--mono);}
+  td.highlight{color:var(--good); font-weight:600;}
+  td.lowlight{color:var(--bad); font-weight:600;}
+
+  .taglist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .taglist li{
+    padding-left:26px; position:relative; color:var(--ink-soft); font-size:15px;
+  }
+  .taglist.reco li:before{content:"→"; position:absolute; left:0; color:var(--teal); font-weight:700;}
+  .taglist.risk li:before{content:"!"; position:absolute; left:0; color:var(--bad); font-weight:700; font-family:var(--mono);}
+
+  .block-title{font-family:var(--serif); font-size:20px; margin:34px 0 14px;}
+  .conclusion-box{
+    background:linear-gradient(135deg, var(--teal-deep), var(--ink));
+    color:#f3f9fa; border-radius:var(--radius); padding:30px 32px; margin-top:30px;
+  }
+  .conclusion-box p{margin:0; font-size:16px; color:#e6f3f5;}
+  .conclusion-box .lbl{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:10px; display:block;}
+
+  /* dashboard */
+  .dash-embed{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px; margin:30px 0;
+  }
+  .dash-story{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0;}
+  @media (max-width:760px){ .dash-story{grid-template-columns:1fr;} }
+  .dash-story .step{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:20px; position:relative;}
+  .dash-story .step .n{font-family:var(--mono); font-size:12px; color:var(--accent-ink); background:#f6e6d4; display:inline-block; padding:2px 9px; border-radius:6px; margin-bottom:10px;}
+  .dash-story .step h3{font-size:16px; margin-bottom:8px;}
+  .dash-story .step p{font-size:14px; color:var(--ink-soft); margin:0;}
+  .insight-30s{display:flex; flex-direction:column; gap:10px; margin-top:26px;}
+  .insight-30s .row{display:flex; gap:14px; align-items:flex-start; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px;}
+  .insight-30s .idx{font-family:var(--mono); font-weight:700; color:var(--teal); font-size:15px; min-width:22px;}
+  .insight-30s .txt{font-size:15px; color:var(--ink);}
+
+  footer{padding:50px 0 70px; text-align:center;}
+  footer .fbrand{font-family:var(--mono); font-size:12.5px; color:var(--ink-faint); letter-spacing:.05em;}
+
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Case Study · E-commerce 2022–2024</div>
+    <nav class="tabs">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#case-a">A</a>
+      <a href="#case-b">Б</a>
+      <a href="#case-v">В</a>
+      <a href="#block5">05</a>
+    </nav>
+    <div class="langtoggle">
+      <button id="btn-uk" class="active" onclick="setLang('uk')">UA</button>
+      <button id="btn-de" onclick="setLang('de')">DE</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="t-uk">
+      <span class="eyebrow">Аналітичний кейс-проєкт · E-commerce, 2022–2024</span>
+      <h1>Виручка росте.<br>Прибуток — не завжди.</h1>
+      <p class="lede">Дашборд і чотири аналітичні кейси про те, як одна й та сама компанія може одночасно рости у виручці та втрачати гроші там, де їх ніхто не шукав: у категоріях, знижках, каналах маркетингу та навіть у логіці A/B-тестів.</p>
+      <div class="hero-stat-row">
+        <div class="microstat"><div class="num">3 роки</div><div class="lbl">даних, 2022–2024</div></div>
+        <div class="microstat"><div class="num">4 кейси</div><div class="lbl">+ дашборд</div></div>
+        <div class="microstat"><div class="num">2 мови</div><div class="lbl">UA / DE</div></div>
+      </div>
+      <div class="callout">
+        16 років — наймолодший вік у даних, ймовірно, мінімальний поріг для клієнтів. Але саме ця наймолодша група витрачає несподівано багато — більше, ніж чимало старших груп. Маркетинговий потенціал, який досі ніхто не помічав.
+        <span class="src">Спостереження · додатковий аналіз даних</span>
+      </div>
+    </div>
+    <div class="t-de">
+      <span class="eyebrow">Analyse-Fallstudie · E-Commerce, 2022–2024</span>
+      <h1>Der Umsatz wächst.<br>Der Gewinn nicht immer.</h1>
+      <p class="lede">Ein Dashboard und vier Analyse-Fälle darüber, wie ein und dasselbe Unternehmen gleichzeitig beim Umsatz wachsen und an Stellen Geld verlieren kann, die niemand vermutet hätte: in Kategorien, bei Rabatten, in Marketing-Kanälen und sogar in der Logik von A/B-Tests.</p>
+      <div class="hero-stat-row">
+        <div class="microstat"><div class="num">3 Jahre</div><div class="lbl">Daten, 2022–2024</div></div>
+        <div class="microstat"><div class="num">4 Fälle</div><div class="lbl">+ Dashboard</div></div>
+        <div class="microstat"><div class="num">2 Sprachen</div><div class="lbl">UA / DE</div></div>
+      </div>
+      <div class="callout">
+        16 Jahre ist das jüngste Alter in den Daten — wahrscheinlich die Mindestaltersgrenze für Kunden. Trotzdem zeigt diese jüngste Gruppe einen überraschend hohen Umsatz, höher als viele ältere Gruppen. Ein Marketing-Potenzial, das bisher niemand beachtet hat.
+        <span class="src">Beobachtung · zusätzliche Datenanalyse</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DASHBOARD ===================== -->
+<section id="dashboard">
+  <div class="wrap">
+    <div class="t-uk">
+      <div class="sec-head"><span class="sec-code">Dashboard</span><h2>Історія в трьох актах</h2></div>
+      <p class="sec-sub">Дашборд побудований так, щоб розповісти одну історію зверху вниз: спершу загальна динаміка за 3 роки, потім продуктивність бізнесу по категоріях, і насамкінець — головне питання: наскільки ефективно витрачається маркетинговий бюджет.</p>
+    </div>
+    <div class="t-de">
+      <div class="sec-head"><span class="sec-code">Dashboard</span><h2>Eine Geschichte in drei Akten</h2></div>
+      <p class="sec-sub">Das Dashboard ist so aufgebaut, dass es von oben nach unten eine Geschichte erzählt: zuerst die allgemeine Dynamik der letzten 3 Jahre, dann die Geschäftsproduktivität nach Kategorien, und zum Schluss die Hauptfrage — wie effizient das Marketingbudget eingesetzt wird.</p>
+    </div>
+
+    <div class="dash-embed">
+      <div class='tableauPlaceholder' id='viz1784836185689' style='position: relative'>
+        <noscript>
+          <a href='#'>
+            <img alt='Business Performance Dashboard 2022–2024 ' src='https://public.tableau.com/static/images/Ab/Abschlussproect/Dashboard1/1_rss.png' style='border: none' />
+          </a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='Abschlussproect&#47;Dashboard1' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/Ab/Abschlussproect/Dashboard1/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-US' />
+          <param name='filter' value='publish=yes' />
+        </object>
+      </div>
+    </div>
+
+    <div class="t-uk">
+      <div class="dash-story">
+        <div class="step"><span class="n">Зверху</span><h3>4 KPI-картки</h3><p>Загальна виручка, кількість замовлень, відсоток повернень і витрачений бюджет на маркетинг — перше, що бачить CEO. Повернені замовлення не входять у виручку; середній чек винесено окремо в блок «Продуктивність».</p></div>
+        <div class="step"><span class="n">Блок 1 · Динаміка</span><h3>Зростання</h3><p>Поруч — виручка по кварталах і зростання ефективності регіонів по роках. Показує, що бізнес росте, і одразу дає контекст, які категорії ростуть найшвидше.</p></div>
+        <div class="step"><span class="n">Блок 2 · Центр</span><h3>Продуктивність</h3><p>Виручка, маржа, середній чек і повернення по категоріях поруч. Головний інсайт: майже половину виручки дає категорія з найнижчою маржею — тому цей блок навмисно в центрі.</p></div>
+      </div>
+      <div class="block-title">Що варто помітити за перші 30 секунд</div>
+      <div class="insight-30s">
+        <div class="row"><span class="idx">01</span><span class="txt">Виручка стабільно росте, особливо в останніх кварталах.</span></div>
+        <div class="row"><span class="idx">02</span><span class="txt">Electronics приносить найбільше виручки, але не найвищу маржу — обсяг і прибутковість не одне й те саме.</span></div>
+        <div class="row"><span class="idx">03</span><span class="txt">Маркетинговий бюджет розподілений погано: Paid Search отримує найбільше грошей, але дає найнижчий прибуток на долар.</span></div>
+      </div>
+      <p style="color:var(--ink-faint); font-size:13.5px; margin-top:20px;">Знизу розміщено маркетингові дані — таблиця CTR/конверсій по каналах і графік «бюджет проти прибутку на долар». Саме цей блок логічно розгортається далі, у Кейсі А.</p>
+    </div>
+    <div class="t-de">
+      <div class="dash-story">
+        <div class="step"><span class="n">Oben</span><h3>4 KPI-Karten</h3><p>Gesamtumsatz, Anzahl der Bestellungen, Retourenquote und ausgegebenes Marketingbudget — das Erste, was der CEO sieht. Retournierte Bestellungen fließen nicht in den Umsatz ein; der durchschnittliche Bestellwert steht separat im Block „Produktivität“.</p></div>
+        <div class="step"><span class="n">Block 1 · Dynamik</span><h3>Wachstum</h3><p>Daneben: Umsatzentwicklung pro Quartal und Wachstum der Regions-Effizienz über die Jahre. Zeigt, dass das Unternehmen wächst, und liefert Kontext, welche Kategorien am schnellsten wachsen.</p></div>
+        <div class="step"><span class="n">Block 2 · Mitte</span><h3>Produktivität</h3><p>Umsatz, Marge, Bestellwert und Retouren nach Kategorien nebeneinander. Zentrale Erkenntnis: Fast die Hälfte des Umsatzes stammt aus der Kategorie mit der niedrigsten Marge — deshalb bewusst in der Mitte platziert.</p></div>
+      </div>
+      <div class="block-title">Was man in den ersten 30 Sekunden erfassen soll</div>
+      <div class="insight-30s">
+        <div class="row"><span class="idx">01</span><span class="txt">Der Umsatz wächst stark, besonders in den letzten Quartalen.</span></div>
+        <div class="row"><span class="idx">02</span><span class="txt">Electronics bringt den meisten Umsatz, aber nicht die höchste Marge — Umsatz und Profitabilität sind nicht dasselbe.</span></div>
+        <div class="row"><span class="idx">03</span><span class="txt">Das Marketingbudget ist schlecht verteilt: Paid Search bekommt am meisten Geld, bringt aber den niedrigsten Gewinn pro Dollar.</span></div>
+      </div>
+      <p style="color:var(--ink-faint); font-size:13.5px; margin-top:20px;">Unten stehen die Marketingdaten — eine Tabelle zu CTR/Conversions nach Kanälen und ein Diagramm „Budget gegen Gewinn pro Dollar“. Genau dieser Block wird als Nächstes in Fall A vertieft.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE A ===================== -->
+<section id="case-a">
+  <div class="wrap">
+    <div class="t-uk">
+      <div class="sec-head"><span class="sec-code">Кейс A</span><h2>Маркетинговий бюджет і ROI по каналах</h2></div>
+      <p class="sec-sub">Гроші йдуть у канал з найгіршою віддачею. Аналіз шести каналів аквізиції показує розрив між тим, куди спрямовано бюджет, і тим, що реально приносить прибуток.</p>
+    </div>
+    <div class="t-de">
+      <div class="sec-head"><span class="sec-code">Fall A</span><h2>Marketingbudget und ROI nach Kanal</h2></div>
+      <p class="sec-sub">Das Geld fließt in den Kanal mit der schlechtesten Rendite. Die Analyse der sechs Akquisitionskanäle zeigt eine Lücke zwischen Budgetverteilung und tatsächlicher Profitabilität.</p>
+    </div>
+
+    <div class="grid-3 t-uk">
+      <div class="stat-card"><div class="big good">8,02 $</div><div class="cap">Organic — найкращий прибуток на 1 $ (ROI +701%)</div></div>
+      <div class="stat-card"><div class="big bad">1,33 $</div><div class="cap">Paid Search — найгірший прибуток на 1 $ (ROI +33%)</div></div>
+      <div class="stat-card"><div class="big neutral">450 959 тис. $</div><div class="cap">Бюджет Paid Search — найбільший з ~981 тис. $ загалом</div></div>
+    </div>
+    <div class="grid-3 t-de">
+      <div class="stat-card"><div class="big good">8,02 $</div><div class="cap">Organic — bester Gewinn pro Dollar (ROI +701%)</div></div>
+      <div class="stat-card"><div class="big bad">1,33 $</div><div class="cap">Paid Search — schlechtester Gewinn pro Dollar (ROI +33%)</div></div>
+      <div class="stat-card"><div class="big neutral">450.959 Tsd. $</div><div class="cap">Paid-Search-Budget — das größte von ~981 Tsd. $ insgesamt</div></div>
+    </div>
+
+    <div class="t-uk">
+      <p style="color:var(--ink-soft); margin-top:26px;">Клікабельність (% Klicks) майже однакова для всіх каналів (4,5–5,2%) і не пояснює різницю в ROI. А от конверсія — пояснює: Organic і Email мають найвищу конверсію (1,65% і 1,33%), Paid Search і Referral — найнижчу (0,27% і 0,74%).</p>
+      <table>
+        <tr><th>Канал</th><th>ROI кампанії</th><th class="mono">Avg LTV, $</th><th class="mono">К-сть клієнтів</th></tr>
+        <tr><td>Influencer</td><td class="highlight">+362,4%</td><td class="mono highlight">1 770</td><td class="mono">353</td></tr>
+        <tr><td>Referral</td><td>+257,7%</td><td class="mono">1 527</td><td class="mono">264</td></tr>
+        <tr><td>Organic</td><td class="highlight">+701,4%</td><td class="mono">1 132</td><td class="mono">716</td></tr>
+        <tr><td>Email</td><td>+550,0%</td><td class="mono">961</td><td class="mono">367</td></tr>
+        <tr><td>Social Ads</td><td>+105,6%</td><td class="mono">727</td><td class="mono">602</td></tr>
+        <tr><td>Paid Search</td><td class="lowlight">+32,7%</td><td class="mono lowlight">595</td><td class="mono">637</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Найкращий ROI кампанії — не завжди найкращий довгостроковий клієнт: Organic лідирує за ROI (+701%), але за LTV першим є Influencer (1 770 $), який за ROI лише третій (+362%). Paid Search слабкий за обома показниками одразу.</p>
+
+      <div class="block-title">Рекомендація: поетапна зміна бюджету</div>
+      <table>
+        <tr><th>Канал</th><th>Поточний бюджет, тис. $</th><th>Напрям зміни</th></tr>
+        <tr><td>Paid Search</td><td class="mono">450 959</td><td class="lowlight">Зменшити</td></tr>
+        <tr><td>Social Ads</td><td class="mono">286 488</td><td>Залишити / трохи зменшити</td></tr>
+        <tr><td>Influencer</td><td class="mono">112 337</td><td class="highlight">Збільшити</td></tr>
+        <tr><td>Referral</td><td class="mono">73 766</td><td class="highlight">Збільшити</td></tr>
+        <tr><td>Email</td><td class="mono">37 468</td><td class="highlight">Збільшити</td></tr>
+        <tr><td>Organic</td><td class="mono">20 364</td><td>Обережно збільшити (обмежений ріст)</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Зміни варто вносити поступово: тестова фаза 1–2 місяці з перерозподілом 10–15% бюджету Paid Search на слабофінансовані канали, регулярні A/B-тести по кожному каналу та одночасне спостереження за трьома метриками — ROI, конверсією і LTV.</p>
+
+      <div class="grid-2" style="margin-top:30px;">
+        <div class="card"><h3>Ризики</h3>
+          <ul class="taglist risk">
+            <li>Малі канали (Organic, Email) мають малий бюджет — високий ROI% частково може пояснюватись малою вибіркою.</li>
+            <li>Organic не росте лінійно з бюджетом — це не класичний платний канал.</li>
+            <li>Різке скорочення Paid Search може одразу зменшити приплив нових клієнтів (зараз він дає найбільше клієнтів — 637).</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Головний висновок</h3><p>Бюджет з 2022 по 2024 майже не змінювався, попри стабільно слабкі результати Paid Search. Обережний перерозподіл на користь Influencer, Referral та Email здатний підняти загальний прибуток без різких втрат.</p></div>
+      </div>
+    </div>
+
+    <div class="t-de">
+      <p style="color:var(--ink-soft); margin-top:26px;">Die Klickrate (% Klicks) ist bei fast allen Kanälen fast gleich (4,5–5,2%) und erklärt den ROI-Unterschied nicht. Die Conversion-Rate schon: Organic und Email haben die höchste Conversion-Rate (1,65% und 1,33%), Paid Search und Referral die niedrigste (0,27% und 0,74%).</p>
+      <table>
+        <tr><th>Kanal</th><th>ROI Kampagne</th><th class="mono">Avg LTV, $</th><th class="mono">Anzahl Kunden</th></tr>
+        <tr><td>Influencer</td><td class="highlight">+362,4%</td><td class="mono highlight">1.770</td><td class="mono">353</td></tr>
+        <tr><td>Referral</td><td>+257,7%</td><td class="mono">1.527</td><td class="mono">264</td></tr>
+        <tr><td>Organic</td><td class="highlight">+701,4%</td><td class="mono">1.132</td><td class="mono">716</td></tr>
+        <tr><td>Email</td><td>+550,0%</td><td class="mono">961</td><td class="mono">367</td></tr>
+        <tr><td>Social Ads</td><td>+105,6%</td><td class="mono">727</td><td class="mono">602</td></tr>
+        <tr><td>Paid Search</td><td class="lowlight">+32,7%</td><td class="mono lowlight">595</td><td class="mono">637</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Der beste Kampagnen-ROI ist nicht immer der beste Langzeitkunde: Organic führt beim ROI (+701%), aber beim LTV ist Influencer die Nummer eins (1.770 $) — beim ROI nur Platz drei (+362%). Paid Search ist bei beiden Kennzahlen der schwächste Kanal.</p>
+
+      <div class="block-title">Empfehlung: schrittweise Budgetänderung</div>
+      <table>
+        <tr><th>Kanal</th><th>Aktuelles Budget, Tsd. $</th><th>Richtung der Änderung</th></tr>
+        <tr><td>Paid Search</td><td class="mono">450.959</td><td class="lowlight">Reduzieren</td></tr>
+        <tr><td>Social Ads</td><td class="mono">286.488</td><td>Gleich lassen / leicht reduzieren</td></tr>
+        <tr><td>Influencer</td><td class="mono">112.337</td><td class="highlight">Erhöhen</td></tr>
+        <tr><td>Referral</td><td class="mono">73.766</td><td class="highlight">Erhöhen</td></tr>
+        <tr><td>Email</td><td class="mono">37.468</td><td class="highlight">Erhöhen</td></tr>
+        <tr><td>Organic</td><td class="mono">20.364</td><td>Vorsichtig erhöhen (begrenztes Wachstum)</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Änderungen sollten schrittweise erfolgen: Testphase von 1–2 Monaten mit Umverteilung von 10–15% des Paid-Search-Budgets auf unterfinanzierte Kanäle, regelmäßige A/B-Tests je Kanal und gleichzeitige Beobachtung von drei Kennzahlen — ROI, Conversion-Rate und LTV.</p>
+
+      <div class="grid-2" style="margin-top:30px;">
+        <div class="card"><h3>Risiken</h3>
+          <ul class="taglist risk">
+            <li>Kleine Kanäle (Organic, Email) haben ein kleines Budget — der hohe ROI% kann teilweise an der kleinen Stichprobe liegen.</li>
+            <li>Organic wächst nicht linear mit mehr Budget — kein klassischer bezahlter Kanal.</li>
+            <li>Ein starker Rückgang bei Paid Search kann sofort weniger neue Kunden bedeuten (aktuell der Kanal mit den meisten Kunden — 637).</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Kernaussage</h3><p>Das Budget hat sich von 2022 bis 2024 kaum verändert, trotz durchgehend schwacher Ergebnisse bei Paid Search. Eine vorsichtige Umverteilung zugunsten von Influencer, Referral und Email kann den Gesamtgewinn erhöhen, ohne abrupte Verluste zu riskieren.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE B (Б) ===================== -->
+<section id="case-b">
+  <div class="wrap">
+    <div class="t-uk">
+      <div class="sec-head"><span class="sec-code">Кейс Б</span><h2>Категорії: обсяг ≠ прибуток</h2></div>
+      <p class="sec-sub">Категорія з найбільшою виручкою не завжди найприбутковіша. Аналіз семи товарних категорій виявляє «ілюзію обсягу» та «прихований діамант».</p>
+    </div>
+    <div class="t-de">
+      <div class="sec-head"><span class="sec-code">Fall B</span><h2>Kategorien: Umsatz ≠ Gewinn</h2></div>
+      <p class="sec-sub">Die Kategorie mit dem größten Umsatz ist nicht immer die profitabelste. Die Analyse von sieben Produktkategorien zeigt eine „Volumen-Illusion“ und einen „verborgenen Diamanten“.</p>
+    </div>
+
+    <div class="grid-2 t-uk">
+      <div class="stat-card"><div class="big bad">57,23%</div><div class="cap">Частка Electronics у виручці — при найнижчій маржі (12%) і найвищих поверненнях (16%)</div></div>
+      <div class="stat-card"><div class="big good">55%</div><div class="cap">Маржа Beauty — найвища серед усіх категорій, при частці виручки лише 4,60%</div></div>
+    </div>
+    <div class="grid-2 t-de">
+      <div class="stat-card"><div class="big bad">57,23%</div><div class="cap">Umsatzanteil von Electronics — bei niedrigster Marge (12%) und höchsten Retouren (16%)</div></div>
+      <div class="stat-card"><div class="big good">55%</div><div class="cap">Marge von Beauty — die höchste aller Kategorien, bei nur 4,60% Umsatzanteil</div></div>
+    </div>
+
+    <div class="t-uk">
+      <p style="color:var(--ink-soft); margin-top:26px;"><strong>Electronics створює «ілюзію обсягу»:</strong> понад половина виручки компанії, найвищий середній чек (717 $) — але й найнижча маржа та повернення на рівні Clothing (16%). Через категорію проходить багато грошей, але прибутку компанія залишає собі мало.</p>
+      <table>
+        <tr><th>Категорія</th><th>Виручка, %</th><th>Маржа, %</th><th>Повернення, %</th></tr>
+        <tr><td>Beauty</td><td class="mono">4,60%</td><td class="mono highlight">55%</td><td class="mono">10%</td></tr>
+        <tr><td>Clothing</td><td class="mono">6,78%</td><td class="mono">45%</td><td class="mono lowlight">16%</td></tr>
+        <tr><td>Toys</td><td class="mono">3,83%</td><td class="mono highlight">40%</td><td class="mono">9%</td></tr>
+        <tr><td>Home &amp; Kitchen</td><td class="mono">15,72%</td><td class="mono">35%</td><td class="mono">10%</td></tr>
+        <tr><td>Sports</td><td class="mono">9,36%</td><td class="mono">30%</td><td class="mono">8%</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);"><strong>Beauty — «прихований діамант»:</strong> маленька виручка (4,60%) робить категорію непомітною, але маржа тут найвища серед усіх (55%), а повернення — на середньому рівні (10%). Toys теж вартий уваги: невелика виручка, гарна маржа (40%) і найнижчі повернення (9%), хоча темп зростання сповільнюється швидше, ніж у Beauty (з +335% у 2022 до +210% у 2024, проти Beauty з +277% до +216%).</p>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card"><h3>Рекомендації</h3>
+          <ul class="taglist reco">
+            <li>Збільшити маркетинговий бюджет і асортимент у Beauty — найкраща маржа, ще не використаний потенціал.</li>
+            <li>Тримати Toys як другий кандидат на розвиток.</li>
+            <li>Переглянути Electronics: не скорочувати різко, але розібратись із причинами високих повернень і низької маржі.</li>
+            <li>Перевірити Clothing — гарна маржа (45%), але повернення такі ж високі, як в Electronics (16%).</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Ризики</h3>
+          <ul class="taglist risk">
+            <li>Beauty і Toys — маленькі категорії; висока маржа частково може пояснюватись малим обсягом продажів.</li>
+            <li>Темп зростання ефективності в обох категоріях сповільнюється з 2022 по 2024.</li>
+            <li>Electronics лишається головним джерелом обсягу продажів — різке скорочення одразу вдарить по загальній виручці.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="t-de">
+      <p style="color:var(--ink-soft); margin-top:26px;"><strong>Electronics erzeugt eine „Volumen-Illusion“:</strong> über die Hälfte des Unternehmensumsatzes, der höchste durchschnittliche Bestellwert (717 $) — aber die niedrigste Marge und Retouren auf dem Niveau von Clothing (16%). Durch die Kategorie fließt viel Geld, doch der Gewinn bleibt gering.</p>
+      <table>
+        <tr><th>Kategorie</th><th>Umsatz, %</th><th>Marge, %</th><th>Retouren, %</th></tr>
+        <tr><td>Beauty</td><td class="mono">4,60%</td><td class="mono highlight">55%</td><td class="mono">10%</td></tr>
+        <tr><td>Clothing</td><td class="mono">6,78%</td><td class="mono">45%</td><td class="mono lowlight">16%</td></tr>
+        <tr><td>Toys</td><td class="mono">3,83%</td><td class="mono highlight">40%</td><td class="mono">9%</td></tr>
+        <tr><td>Home &amp; Kitchen</td><td class="mono">15,72%</td><td class="mono">35%</td><td class="mono">10%</td></tr>
+        <tr><td>Sports</td><td class="mono">9,36%</td><td class="mono">30%</td><td class="mono">8%</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);"><strong>Beauty ist der „verborgene Diamant“:</strong> der kleine Umsatzanteil (4,60%) macht die Kategorie unauffällig, aber die Marge ist hier die höchste von allen (55%), die Retouren liegen im Mittelfeld (10%). Auch Toys ist beachtenswert: kleiner Umsatz, gute Marge (40%) und die niedrigsten Retouren (9%), obwohl das Wachstum schneller abbremst als bei Beauty (von +335% 2022 auf +210% 2024, gegenüber Beauty von +277% auf +216%).</p>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card"><h3>Empfehlungen</h3>
+          <ul class="taglist reco">
+            <li>Marketingbudget und Sortiment bei Beauty erhöhen — beste Marge, bisher ungenutztes Potenzial.</li>
+            <li>Toys als zweiten Kandidaten für Wachstum im Blick behalten.</li>
+            <li>Electronics überprüfen: nicht abrupt kürzen, aber Ursachen für hohe Retouren und niedrige Marge klären.</li>
+            <li>Clothing prüfen — gute Marge (45%), aber genauso hohe Retouren wie Electronics (16%).</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Risiken</h3>
+          <ul class="taglist risk">
+            <li>Beauty und Toys sind kleine Kategorien; die hohe Marge kann teilweise am geringen Verkaufsvolumen liegen.</li>
+            <li>Das Effizienzwachstum beider Kategorien bremst von 2022 bis 2024 ab.</li>
+            <li>Electronics bleibt die Hauptumsatzquelle — eine abrupte Kürzung würde den Gesamtumsatz sofort treffen.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE V (В) ===================== -->
+<section id="case-v">
+  <div class="wrap">
+    <div class="t-uk">
+      <div class="sec-head"><span class="sec-code">Кейс В</span><h2>Знижки та цінні клієнти</h2></div>
+      <p class="sec-sub">Маркетинг любить знижки, але чи вони справді корисні? Клієнти зі знижкою купують рідше, а третину всієї виручки дають лише 5% клієнтів.</p>
+    </div>
+    <div class="t-de">
+      <div class="sec-head"><span class="sec-code">Fall C</span><h2>Rabatte und wertvolle Kunden</h2></div>
+      <p class="sec-sub">Das Marketing liebt Rabatte — aber helfen sie wirklich? Kunden mit Rabatt kaufen seltener, und ein Drittel des Gesamtumsatzes stammt von nur 5% der Kunden.</p>
+    </div>
+
+    <div class="grid-3 t-uk">
+      <div class="stat-card"><div class="big neutral">4,0 <span class="delta down">vs 2,0</span></div><div class="cap">Замовлень на клієнта: звичайні клієнти проти клієнтів зі знижкою &gt;20%</div></div>
+      <div class="stat-card"><div class="big good">35,17%</div><div class="cap">Виручки компанії дають топ-5% клієнтів</div></div>
+      <div class="stat-card"><div class="big neutral">11,6%</div><div class="cap">Клієнтів отримують знижку &gt;20% — і це лише 6,2% усіх замовлень</div></div>
+    </div>
+    <div class="grid-3 t-de">
+      <div class="stat-card"><div class="big neutral">4,0 <span class="delta down">vs 2,0</span></div><div class="cap">Bestellungen pro Kunde: normale Kunden gegenüber Kunden mit Rabatt &gt;20%</div></div>
+      <div class="stat-card"><div class="big good">35,17%</div><div class="cap">Anteil der Top-5%-Kunden am Gesamtumsatz</div></div>
+      <div class="stat-card"><div class="big neutral">11,6%</div><div class="cap">Kunden mit Rabatt &gt;20% — nur 6,2% aller Bestellungen</div></div>
+    </div>
+
+    <div class="t-uk">
+      <p style="color:var(--ink-soft); margin-top:26px;">Клієнт зі знижкою &gt;20% робить у середньому лише 2 замовлення — вдвічі менше за звичайного клієнта (4 замовлення). Знижка приваблює один раз, а не будує лояльність.</p>
+      <div class="block-title">Топ-5% клієнтів по каналах (North America)</div>
+      <table>
+        <tr><th>Канал</th><th class="mono">TOP-5%, тис. $</th><th class="mono">Andere 95%, тис. $</th><th>Частка TOP-5%</th></tr>
+        <tr><td>Influencer</td><td class="mono">73 259</td><td class="mono">131 444</td><td class="highlight">35,8%</td></tr>
+        <tr><td>Paid Search</td><td class="mono">34 344</td><td class="mono">84 270</td><td>29,0%</td></tr>
+        <tr><td>Email</td><td class="mono">34 716</td><td class="mono">94 297</td><td>26,9%</td></tr>
+        <tr><td>Organic</td><td class="mono">64 094</td><td class="mono">184 856</td><td>25,7%</td></tr>
+        <tr><td>Referral</td><td class="mono">32 391</td><td class="mono">104 114</td><td>23,7%</td></tr>
+        <tr><td>Social Ads</td><td class="mono">29 276</td><td class="mono">97 882</td><td class="lowlight">23,0%</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Серед топ-5% клієнтів лідирує пара <strong>Influencer + Europe</strong>, далі Organic + Southeast Asia і Influencer + North America. А серед решти 95% лідирує зовсім інша пара — <strong>Organic + North America</strong>. Це два різні профілі клієнтів: масова аудиторія через Organic/NA і найцінніші клієнти через Influencer/Europe.</p>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card"><h3>Як утримати топ-5%</h3>
+          <ul class="taglist reco">
+            <li>Не пропонувати масові знижки — вони не будують лояльність.</li>
+            <li>Створити VIP-програму: персональний менеджер, ранній доступ, безкоштовна доставка — замість зниження ціни.</li>
+            <li>Сфокусувати VIP-програму на парі Influencer + Europe.</li>
+            <li>Окремо стежити за Organic + North America — джерело основного обсягу продажів.</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Ризики</h3>
+          <ul class="taglist risk">
+            <li>Дані по Middle East і Latin America замалі, щоб робити висновки без окремої перевірки.</li>
+            <li>Залежність від топ-5% — це і сила, і ризик: втрата навіть частини цієї групи помітно вдарить по прибутку.</li>
+            <li>Дані про знижки і про топ-5% клієнтів — різні зрізи; перетин цих груп варто перевірити окремо.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="t-de">
+      <p style="color:var(--ink-soft); margin-top:26px;">Ein Kunde mit Rabatt &gt;20% tätigt im Schnitt nur 2 Bestellungen — halb so viele wie ein normaler Kunde (4 Bestellungen). Der Rabatt zieht einmal an, baut aber keine Loyalität auf.</p>
+      <div class="block-title">Top-5%-Kunden nach Kanal (North America)</div>
+      <table>
+        <tr><th>Kanal</th><th class="mono">TOP-5%, Tsd. $</th><th class="mono">Andere 95%, Tsd. $</th><th>Anteil TOP-5%</th></tr>
+        <tr><td>Influencer</td><td class="mono">73.259</td><td class="mono">131.444</td><td class="highlight">35,8%</td></tr>
+        <tr><td>Paid Search</td><td class="mono">34.344</td><td class="mono">84.270</td><td>29,0%</td></tr>
+        <tr><td>Email</td><td class="mono">34.716</td><td class="mono">94.297</td><td>26,9%</td></tr>
+        <tr><td>Organic</td><td class="mono">64.094</td><td class="mono">184.856</td><td>25,7%</td></tr>
+        <tr><td>Referral</td><td class="mono">32.391</td><td class="mono">104.114</td><td>23,7%</td></tr>
+        <tr><td>Social Ads</td><td class="mono">29.276</td><td class="mono">97.882</td><td class="lowlight">23,0%</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Unter den Top-5%-Kunden führt die Kombination <strong>Influencer + Europe</strong>, gefolgt von Organic + Southeast Asia und Influencer + North America. Bei den übrigen 95% führt eine ganz andere Kombination — <strong>Organic + North America</strong>. Das sind zwei unterschiedliche Kundenprofile: die Masse über Organic/NA und die wertvollsten Kunden über Influencer/Europe.</p>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card"><h3>Wie man Top-5%-Kunden hält</h3>
+          <ul class="taglist reco">
+            <li>Keine Massenrabatte anbieten — sie bauen keine Loyalität auf.</li>
+            <li>Ein VIP-Programm schaffen: persönlicher Manager, früher Zugang, kostenloser Versand — statt Preissenkung.</li>
+            <li>Das VIP-Programm auf die Kombination Influencer + Europe fokussieren.</li>
+            <li>Organic + North America separat beobachten — Quelle des Hauptverkaufsvolumens.</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Risiken</h3>
+          <ul class="taglist risk">
+            <li>Daten zu Middle East und Latin America sind zu klein für eigenständige Schlüsse.</li>
+            <li>Die Abhängigkeit von Top-5% ist Stärke und Risiko zugleich — der Verlust auch nur eines Teils dieser Gruppe würde den Gewinn spürbar treffen.</li>
+            <li>Rabatt-Daten und Top-5%-Kunden sind unterschiedliche Datenschnitte; die Überschneidung sollte separat geprüft werden.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOCK 5 ===================== -->
+<section id="block5">
+  <div class="wrap">
+    <div class="t-uk">
+      <div class="sec-head"><span class="sec-code">Блок 05</span><h2>Статистичне мислення: A/B-експеримент</h2></div>
+      <p class="sec-sub">Новий дизайн checkout виглядає трохи кращим у середньому — але середнє число обманює. Правда ховається в підгрупах.</p>
+    </div>
+    <div class="t-de">
+      <div class="sec-head"><span class="sec-code">Block 05</span><h2>Statistisches Denken: A/B-Experiment</h2></div>
+      <p class="sec-sub">Das neue Checkout-Design wirkt im Durchschnitt etwas besser — aber der Durchschnitt täuscht. Die Wahrheit steckt in den Untergruppen.</p>
+    </div>
+
+    <div class="t-uk">
+      <table>
+        <tr><th>Варіант</th><th class="mono">Середній чек, €</th><th class="mono">К-сть замовлень</th></tr>
+        <tr><td>A</td><td class="mono">281,73</td><td class="mono">3 681</td></tr>
+        <tr><td>B</td><td class="mono">287,27</td><td class="mono">3 674</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">На перший погляд B краще на <span class="delta up">+2%</span>. Але щойно клієнтів ділять на нових і повторних, картина змінюється кардинально:</p>
+      <table>
+        <tr><th>Підгрупа</th><th class="mono">Чек A, €</th><th class="mono">Чек B, €</th><th>Різниця</th><th class="mono">Замовлень A / B</th></tr>
+        <tr><td>Нові клієнти</td><td class="mono">230,07</td><td class="mono">260,24</td><td class="highlight">+13,1%</td><td class="mono">265 / 247</td></tr>
+        <tr><td>Повторні клієнти</td><td class="mono">285,74</td><td class="mono">289,22</td><td>+1,2%</td><td class="mono">3 416 / 3 427</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Нових клієнтів лише 7% усіх замовлень — тому їхній сильний ефект «губиться» в загальному середньому (+2%), яке насправді ховає, що B сильно допомагає новим клієнтам і майже ніяк — повторним.</p>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card"><h3>Кому підходить B?</h3><p>Впроваджувати B для нових клієнтів — ефект великий і надійний (+13,1%). Для повторних — рано робити висновки: ефект замалий (+1,2%), потрібне додаткове тестування з більшою вибіркою.</p></div>
+        <div class="card"><h3>Чесний аналітик проти маніпуляції</h3><p>«Продати» B можна, показавши лише +13% без розміру групи. «Поховати» — показавши лише +1,2% повторних клієнтів. Чесний підхід: показати обидві підгрупи з реальною кількістю замовлень і пояснити, з чого складається загальне середнє.</p></div>
+      </div>
+
+      <div class="conclusion-box">
+        <span class="lbl">Головний урок</span>
+        <p>У цьому експерименті B не шкодить жодній групі, але загальне середнє все одно вводить в оману — воно ховає, що ефект дуже різний за силою в різних підгрупах. Завдання аналітика — не просто порахувати середнє, а перевірити, чи можна йому довіряти.</p>
+      </div>
+    </div>
+
+    <div class="t-de">
+      <table>
+        <tr><th>Variante</th><th class="mono">Durchschn. Bestellwert, €</th><th class="mono">Anzahl Bestellungen</th></tr>
+        <tr><td>A</td><td class="mono">281,73</td><td class="mono">3.681</td></tr>
+        <tr><td>B</td><td class="mono">287,27</td><td class="mono">3.674</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Auf den ersten Blick ist B um <span class="delta up">+2%</span> besser. Doch sobald man Kunden in neue und wiederkehrende teilt, ändert sich das Bild grundlegend:</p>
+      <table>
+        <tr><th>Untergruppe</th><th class="mono">Wert A, €</th><th class="mono">Wert B, €</th><th>Differenz</th><th class="mono">Bestellungen A / B</th></tr>
+        <tr><td>Neue Kunden</td><td class="mono">230,07</td><td class="mono">260,24</td><td class="highlight">+13,1%</td><td class="mono">265 / 247</td></tr>
+        <tr><td>Bestandskunden</td><td class="mono">285,74</td><td class="mono">289,22</td><td>+1,2%</td><td class="mono">3.416 / 3.427</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);">Neue Kunden machen nur 7% aller Bestellungen aus — deshalb geht ihr starker Effekt im Gesamtdurchschnitt (+2%) unter, der eigentlich verbirgt, dass B neuen Kunden stark hilft und Bestandskunden kaum.</p>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card"><h3>Für wen passt B?</h3><p>B für neue Kunden einführen — der Effekt ist groß und zuverlässig (+13,1%). Bei Bestandskunden ist es zu früh für Schlüsse: der Effekt ist zu klein (+1,2%), weitere Tests mit größerer Stichprobe sind nötig.</p></div>
+        <div class="card"><h3>Ehrlicher Analyst vs. Datenmanipulation</h3><p>B „verkaufen“ ließe sich, indem man nur +13% ohne Gruppengröße zeigt. „Begraben“ ließe sich B, indem man nur die +1,2% der Bestandskunden zeigt. Der ehrliche Weg: beide Untergruppen mit echten Bestellzahlen zeigen und erklären, woraus der Gesamtdurchschnitt besteht.</p></div>
+      </div>
+
+      <div class="conclusion-box">
+        <span class="lbl">Kernaussage</span>
+        <p>In diesem Experiment schadet B keiner Gruppe, doch der Gesamtdurchschnitt täuscht trotzdem — er verbirgt, wie unterschiedlich stark der Effekt in den Untergruppen ist. Die Aufgabe des Analysten ist nicht nur, den Durchschnitt zu berechnen, sondern zu prüfen, ob man ihm vertrauen kann.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand t-uk">Аналітичний проєкт · Дашборд + 4 кейси · 2022–2024</div>
+    <div class="fbrand t-de">Analyse-Projekt · Dashboard + 4 Fälle · 2022–2024</div>
+  </div>
+</footer>
+
+<script>
+  function setLang(l){
+    document.body.classList.toggle('lang-de', l === 'de');
+    document.documentElement.lang = l;
+    document.getElementById('btn-uk').classList.toggle('active', l === 'uk');
+    document.getElementById('btn-de').classList.toggle('active', l === 'de');
+  }
+
+  (function(){
+    var d = document.createElement('script');
+    d.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    var divElement = document.getElementById('viz1784836185689');
+    var vizElement = divElement.getElementsByTagName('object')[0];
+    function sizeViz(){
+      if (divElement.offsetWidth > 800) { vizElement.style.width='100%'; vizElement.style.height=(divElement.offsetWidth*0.75)+'px'; }
+      else if (divElement.offsetWidth > 500) { vizElement.style.width='100%'; vizElement.style.height=(divElement.offsetWidth*0.75)+'px'; }
+      else { vizElement.style.width='100%'; vizElement.style.height='1677px'; }
+    }
+    sizeViz();
+    vizElement.parentNode.insertBefore(d, vizElement);
+  })();
+</script>
+
+</body>
+</html>
