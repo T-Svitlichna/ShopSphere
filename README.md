@@ -4,8 +4,8 @@
 
 **Autorin:** Svitilichna Tetiana
 
+🔗 **Präsentations-Website (live):** [ShopSphere Presentation](https://t-svitlichna.github.io/ShopSphere/)
 🔗 **Dashboard (Tableau Public):** [ShopSphere Dashboard](https://public.tableau.com/views/Abschlussproect/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
-🔗 **Vollständige Projektpräsentation:** [Google Drive](https://drive.google.com/file/d/1oggIIGP9saXxdrap-Oc7cpSRLBWI-PtR/view?usp=sharing)
 
 ---
 
