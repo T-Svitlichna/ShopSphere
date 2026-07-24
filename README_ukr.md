@@ -52,9 +52,11 @@ CEO поставила п'ять запитань:
 
 ```
 ├── README.md
-├── data/                           # вихідні CSV-таблиці
-├── SQL_query/                      # SQL-запити
-└── Перевірка_баз_данних.docx       # перевірка якості даних
+├── README_ukr.md                    # diese Datei
+├── data/                            # Roh-CSV-Tabellen
+├── sql_abfragen/                    # SQL-query
+├── Tableau/                         # File - Tableau Public
+
 ```
 
 ---
