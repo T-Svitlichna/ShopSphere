@@ -143,5 +143,5 @@ Fünf konkrete Antworten auf die Fragen aus der Projektlegende:
 | Welche Regionen sind unsere Zukunft? | Southeast Asia und Middle East, nicht Europe oder North America |
 | Hat der A/B-Test funktioniert? | Ja, für neue Kunden — bei Bestandskunden ist es für ein Fazit noch zu früh |
 
-Ausführlich in der [Projektpräsentation](https://drive.google.com/file/d/1oggIIGP9saXxdrap-Oc7cpSRLBWI-PtR/view?usp=sharing).
+Ausführlich in der **Präsentations-Website (live):** [ShopSphere Presentation](https://t-svitlichna.github.io/ShopSphere/)
 
