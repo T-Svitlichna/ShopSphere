@@ -130,4 +130,4 @@ Electronics — «ілюзія обсягу» (57% виручки, 12% марж�
 | Які регіони — майбутнє? | Southeast Asia і Middle East, а не Europe чи North America |
 | Чи спрацював A/B-тест? | Так для нових клієнтів, ще рано робити висновок для постійних |
 
-Детально — у [презентації проєкту](https://drive.google.com/file/d/1oggIIGP9saXxdrap-Oc7cpSRLBWI-PtR/view?usp=sharing).
+Детально — у **Präsentations-Website (live):** [ShopSphere Presentation](https://t-svitlichna.github.io/ShopSphere/)
